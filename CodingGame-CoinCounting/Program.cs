@@ -66,19 +66,34 @@
                 return result;
             }
         }
+        public class ArrayProcessor : IProcesser
+        {
+            public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values)
             {
-                var couple = stack.Pop();
-                if (couple.n > 0)
+                var coupled = nbOfCoins.Select((n, i) => (n, values[i])).ToList();
+                coupled.Sort((kv1, kv2) => -kv1.n.CompareTo(kv2.n));
+                var array = coupled.ToArray();
+                int sum = 0;
+                int result = 0;
+                int skipped = 0;
+                for (; sum < valueToReach; result++)
                 {
-                    couple.n--;
-                    sum += couple.v;
+                    var couple = array[skipped];
                     if (couple.n > 0)
-                        stack.Push(couple);
+                    {
+                        couple.n--;
+                        sum += couple.Item2;
+                    }
                     else
+                    {
+                        skipped++;
+                        //We didn't pick a coin because we skipped it
+                        result--;
                         Console.Error.WriteLine("Out of coins for : " + couple);
+                    }
                 }
+                return result;
             }
-            return result;
         }
     }
 }
