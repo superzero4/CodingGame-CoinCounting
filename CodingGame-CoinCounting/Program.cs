@@ -39,7 +39,25 @@
         }
         public static int Process(int valueToReach, int N, int[] nbOfCoins, int[] values)
         {
-            return (valueToReach / values[0]) + 1;
+            var coupled = nbOfCoins.Select((n, i) => (n, values[i])).ToList();
+            coupled.Sort((kv1, kv2) => -kv1.n.CompareTo(kv2.n));
+            var stack = new Stack<(int n, int v)>(coupled);
+            int sum = 0;
+            int result = 0;
+            for (; sum < valueToReach; result++)
+            {
+                var couple = stack.Pop();
+                if (couple.n > 0)
+                {
+                    couple.n--;
+                    sum += couple.v;
+                    if (couple.n > 0)
+                        stack.Push(couple);
+                    else
+                        Console.Error.WriteLine("Out of coins for : " + couple);
+                }
+            }
+            return result;
         }
     }
 }
