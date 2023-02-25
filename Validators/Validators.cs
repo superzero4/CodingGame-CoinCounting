@@ -27,7 +27,7 @@ namespace Validators
         {
             var obtained = new T().Process(valueToReach, N, nbOfCoins, values);
             //Assert.AreEqual(consoleOut.ToString(), "Hello, World!");
-            Assert.AreEqual(obtained, result);
+            Assert.AreEqual(result, obtained);
         }
         //Randomly generated
         [TestCase(7, 49, 1, new int[] { 89 }, new int[] { 8 })]
