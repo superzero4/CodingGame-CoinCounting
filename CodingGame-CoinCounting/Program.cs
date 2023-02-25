@@ -117,7 +117,7 @@ namespace CoinCounting
             }
             public static (int n, int v)[] CreateSortedCouples(int[] nbOfCoins, int[] values)
             {
-                var couples =ZipArrays(nbOfCoins, values);
+                var couples = ZipArrays(nbOfCoins, values);
                 Array.Sort(couples, new Sorts());
                 return couples;
             }
@@ -142,7 +142,6 @@ namespace CoinCounting
             public abstract class BaseProcesser<T> : IProcesser<T> where T : IEnumerable<(int n, int v)>
             {
                 public abstract T CreateStructure(int[] nbOfCoins, int[] values);
-
                 public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values)
                 {
                     //If total ponderated sum if < goal, we return -1 meaning we can't get the value
@@ -157,7 +156,7 @@ namespace CoinCounting
                 public override Stack<(int n, int v)> CreateStructure(int[] nbOfCoins, int[] values)
                 {
                     var stack = new Stack<(int, int)>();
-                    for (int i =  0; i < nbOfCoins.Length; i++)
+                    for (int i = 0; i < nbOfCoins.Length; i++)
                     {
                         int secondValue = values[i];
                         var tuple = (nbOfCoins[i], secondValue);
