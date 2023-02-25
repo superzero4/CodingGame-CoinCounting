@@ -161,9 +161,12 @@ namespace CoinCounting
                             stack.Push(tuple);
                         else
                         {
+                            var toReorder = new List<(int, int)>();
                             while (stack.Count > 0 && secondValue > stack.Peek().Item2)
-                                stack.Pop();
+                                toReorder.Add(stack.Pop());
                             stack.Push(tuple);
+                            foreach (var item in toReorder.AsEnumerable().Reverse())
+                                stack.Push(item);
                         }
                     }
                     //less optimized would be 

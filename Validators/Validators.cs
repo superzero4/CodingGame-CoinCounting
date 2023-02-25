@@ -12,6 +12,16 @@ namespace Validators
         {
 
         }
+
+        [TestCase(new int[] { 1,1,1},new int[] { 2,5,3})]
+        [TestCase(new int[] { 1,2,3},new int[] { 5,2,4})]
+        [TestCase(new int[] { 1,2,3,5,3},new int[] { 3,6,5,2,4})]
+        public void TestStackGeneration(int[] nbOfCoins, int[] values)
+        {
+            var obtained = new Program.Processers.StackProcesser().CreateStructure(nbOfCoins, values);
+            //We reverse zipped array even thou it's sorted correctly because we're in a LIFO struct when creating stack to compare so elements need to be inserted from enumerable in reverse order
+            Assert.AreEqual(new System.Collections.Generic.Stack<(int, int)>(Program.Sorts.ZipThenOrder(nbOfCoins, values).Reverse()),obtained);
+        }
         public void Test<T>(int result, int valueToReach, int N, int[] nbOfCoins, int[] values) where T : Program.Processers.IProcesser, new()
         {
             var obtained = new T().Process(valueToReach, N, nbOfCoins, values);
