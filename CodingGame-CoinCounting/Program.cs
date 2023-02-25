@@ -26,9 +26,9 @@ namespace CoinCounting
 
     public class Program
     {
-        private const bool _generateTestCases = true;
-        private const int maxVal = 10;
-        private const int maxCount = 100;
+        private const bool _generateTestCases = false;
+        private const int maxValuesAndCount = 1000;
+        private const int maxTot = 1000;
         private const char separator = ' ';
         private const string separatorTest = ", ";
 
@@ -38,27 +38,28 @@ namespace CoinCounting
             {
                 StringBuilder sb = new StringBuilder();
                 StringBuilder sbUnitTest = new StringBuilder();
-                foreach (int N in new int[] { 1, 2, 3, 4, 5 })
+                foreach (int N in new int[] { 100, 1000/*1, 2, 3, 4, 5*/ })
                 {
-                    int maxTot = 0;
-                    for (int i = maxVal; i >= maxVal - N; i--)
+                    int maxReachableTot = 0;
+                    for (int i = maxValuesAndCount; i >= maxValuesAndCount - N; i--)
                     {
-                        maxTot += i;
+                        maxReachableTot += i;
                     }
-                    maxTot *= maxCount;
-                    maxTot /= 10;
+                    maxReachableTot *= maxValuesAndCount;
+                    maxReachableTot = (int)MathF.Min(maxReachableTot, maxTot);
+                    //maxTot /= 10;
                     var rand = new Random();
-                    int valueToReach = rand.Next(maxTot);
+                    int valueToReach = rand.Next(maxReachableTot);
                     sb.Append(valueToReach).Append(separator);
                     sbUnitTest.Append(valueToReach).Append(separatorTest);
                     sb.Append(N).Append(separator);
                     sbUnitTest.Append(N).Append(separatorTest);
                     //To list is mandatory because rand.Next is called when the iterator comes through and we want fixed list
-                    var counts = Enumerable.Range(0, N).Select(n => rand.Next(maxCount)).ToList();
+                    var counts = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount)).ToList();
                     sb.Append(string.Join('.', counts)).Append(separator);
                     TextArray(sbUnitTest, counts).Append(separatorTest);
 
-                    var values = Enumerable.Range(0, N).Select(n => rand.Next(maxVal)).ToList();
+                    var values = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount)).ToList();
                     sb.Append(string.Join('.', values));
                     TextArray(sbUnitTest, values).Append(")]");
 
