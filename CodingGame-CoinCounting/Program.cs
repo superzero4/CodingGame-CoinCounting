@@ -184,8 +184,8 @@ namespace CoinCounting
                     int result = 0;
                     for (; sum < valueToReach; result++)
                     {
-/*                        if (stack.Count == 0)
-                            return -1;*/
+                        /*                        if (stack.Count == 0)
+                                                    return -1;*/
                         var couple = stack.Pop();
                         if (couple.n > 0)
                         {
@@ -209,19 +209,15 @@ namespace CoinCounting
                     int sum = 0;
                     int result = 0;
                     int skipped = 0;
-                    for (var couple = array[skipped]; sum < valueToReach; result++)
+                    for (; sum < valueToReach; result++)
                     {
-                        if (couple.n > 0)
+                        if (array[skipped].n > 0)
                         {
-                            couple.n--;
-                            sum += couple.v;
-                        }
-                        else
-                        {
-                            skipped++;
-                            //We didn't pick a coin because we skipped it
-                            result--;
-                            Console.Error.WriteLine("Out of coins for : " + couple);
+                            array[skipped].n--;
+                            sum += array[skipped].v;
+                            //Update modified value
+                            if (array[skipped].n == 0)
+                                skipped++;
                         }
                     }
                     return result;
