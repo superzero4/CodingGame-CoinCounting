@@ -215,7 +215,6 @@ namespace CoinCounting
                         {
                             array[skipped].n--;
                             sum += array[skipped].v;
-                            //Update modified value
                             if (array[skipped].n == 0)
                                 skipped++;
                         }
