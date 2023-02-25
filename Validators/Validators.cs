@@ -36,6 +36,12 @@ namespace Validators
         [TestCase(-1, 246, 3, new int[] { 12, 7, 26 }, new int[] { 7, 8, 0 })]
         [TestCase(45, 134, 4, new int[] { 54, 94, 44, 44 }, new int[] { 9, 3, 6, 9 })]
         [TestCase(121, 366, 5, new int[] { 94, 90, 71, 23, 82 }, new int[] { 6, 2, 8, 6, 9 })]
+        //2nd Serie
+        [TestCase(18, 139, 1, new int[] { 54 }, new int[] { 8 })]
+        [TestCase(13, 86, 2, new int[] { 59, 87 }, new int[] { 9, 7 })]
+        [TestCase(65, 124, 3, new int[] { 67, 44, 56 }, new int[] { 9, 0, 6 })]
+        [TestCase(26, 130, 4, new int[] { 98, 19, 23, 75 }, new int[] { 5, 7, 7, 9 })]
+        [TestCase(98, 7, 5, new int[] { 4, 92, 18, 96, 94 }, new int[] { 8, 2, 9, 2, 0 })]
         //HandMade
         [TestCase(3, 14, 2, new int[] { 2, 2 }, new int[] { 6, 5 })]
         [TestCase(3, 9, 1, new int[] { 3 }, new int[] { 4 })]
@@ -48,6 +54,12 @@ namespace Validators
         [TestCase(-1, 246, 3, new int[] { 12, 7, 26 }, new int[] { 7, 8, 0 })]
         [TestCase(45, 134, 4, new int[] { 54, 94, 44, 44 }, new int[] { 9, 3, 6, 9 })]
         [TestCase(121, 366, 5, new int[] { 94, 90, 71, 23, 82 }, new int[] { 6, 2, 8, 6, 9 })]
+        //2nd Serie
+        [TestCase(18, 139, 1, new int[] { 54 }, new int[] { 8 })]
+        [TestCase(13, 86, 2, new int[] { 59, 87 }, new int[] { 9, 7 })]
+        [TestCase(65, 124, 3, new int[] { 67, 44, 56 }, new int[] { 9, 0, 6 })]
+        [TestCase(26, 130, 4, new int[] { 98, 19, 23, 75 }, new int[] { 5, 7, 7, 9 })]
+        [TestCase(98, 7, 5, new int[] { 4, 92, 18, 96, 94 }, new int[] { 8, 2, 9, 2, 0 })]
         //HandMade
         [TestCase(3, 14, 2, new int[] { 2, 2 }, new int[] { 6, 5 })]
         [TestCase(3, 9, 1, new int[] { 3 }, new int[] { 4 })]
