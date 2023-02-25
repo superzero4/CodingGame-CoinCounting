@@ -75,6 +75,42 @@ namespace Validators
             //Assert.AreEqual(consoleOut.ToString(), "Hello, World!");
             Assert.AreEqual(result, obtained);
         }
+        //CodingGame Values
+        /*
+         -1
+188
+1
+3
+8
+ ^^^^^^ CodingGameTest \ C# test vvvvvvv
+[TestCase(-1, 188, 1,  new int[] { 3 },  new int[] { 8 })]
+22
+154
+2
+66 76
+8 7
+ ^^^^^^ CodingGameTest \ C# test vvvvvvv
+[TestCase(22, 154, 2,  new int[] { 66, 76 },  new int[] { 8, 7 })]
+-1
+246
+3
+12 7 26
+7 8 0
+ ^^^^^^ CodingGameTest \ C# test vvvvvvv
+[TestCase(-1, 246, 3,  new int[] { 12, 7, 26 },  new int[] { 7, 8, 0 })]
+45
+134
+4
+54 94 44 44
+9 3 6 9
+ ^^^^^^ CodingGameTest \ C# test vvvvvvv
+[TestCase(45, 134, 4,  new int[] { 54, 94, 44, 44 },  new int[] { 9, 3, 6, 9 })]
+121
+366
+5
+94 90 71 23 82
+6 2 8 6 9 
+         */
         //Randomly generated
         [TestCase(7, 49, 1, new int[] { 89 }, new int[] { 8 })]
         [TestCase(-1, 188, 1, new int[] { 3 }, new int[] { 8 })]
