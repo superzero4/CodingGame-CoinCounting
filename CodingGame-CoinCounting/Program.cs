@@ -118,6 +118,9 @@ namespace CoinCounting
 
                 public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values)
                 {
+                    //If total ponderated sum if < goal, we return -1 meaning we can't get the value
+                    if (nbOfCoins.Zip(values, (n, v) => n * v).Sum() < valueToReach)
+                        return -1;
                     return Process(valueToReach, CreateStructure(nbOfCoins, values));
                 }
                 public abstract int Process(int valueToReach, T structure);
@@ -154,8 +157,8 @@ namespace CoinCounting
                     int result = 0;
                     for (; sum < valueToReach; result++)
                     {
-                        if (stack.Count == 0)
-                            return -1;
+/*                        if (stack.Count == 0)
+                            return -1;*/
                         var couple = stack.Pop();
                         if (couple.n > 0)
                         {
