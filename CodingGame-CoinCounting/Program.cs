@@ -94,7 +94,7 @@ namespace CoinCounting
             {
                 values[i] = int.Parse(splitted[i]);
             }
-            System.Console.Write(new Processers.StackProcesser().Process(valueToReach, N, nbOfCoins, values));
+            System.Console.Write(new Processers.MinArrayProcessor().Process(valueToReach, N, nbOfCoins, values));
         }
         public class Sorts : IComparer<(int, int)>
         {
@@ -224,14 +224,37 @@ namespace CoinCounting
             }
             public class MinArrayProcessor : BaseProcesser<(int n, int v)[]>
             {
-                public override (int n, int v)[] CreateStructure(int[] nbOfCoins, int[] values)=> Sorts.ZipArrays(nbOfCoins,values);
+                public override (int n, int v)[] CreateStructure(int[] nbOfCoins, int[] values) => Sorts.ZipArrays(nbOfCoins, values);
 
-                public override int Process(int valueToReach, (int n, int v)[] structure)
+                public override int Process(int valueToReach, (int n, int v)[] array)
                 {
-                    //Find min on each pass instead of sorting all array before
-                    throw new NotImplementedException();
+                    int sum = 0;
+                    int result = 0;
+                    int index = 0;
+                    while (sum < valueToReach)
+                    {
+                        int min = Program.maxValuesAndCount * 2;
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            if (array[i].n > 0 && array[i].v < min)
+                            {
+                                min = array[i].v;
+                                index = i;
+                            }
+                        }
+                        var couple = array[index];
+                        //(index,var couple) = array.Where(nv => nv.n > 0).Select((nv,i)=>(i,nv)).MinBy(inv => inv.nv.v);
+                        for (; couple.n > 0 && sum < valueToReach; result++, couple.n--)
+                        {
+                            sum += couple.v;
+                            //Update modified value
+                        }
+                        array[index] = couple;
+                    }
+                    return result;
                 }
             }
         }
     }
 }
+
