@@ -30,12 +30,14 @@ namespace CoinCounting
         private const int maxVal = 10;
         private const int maxCount = 100;
         private const char separator = ' ';
+        private const string separatorTest = ", ";
 
         public static void Main(string[] args)
         {
             if (_generateTestCases)
             {
                 StringBuilder sb = new StringBuilder();
+                StringBuilder sbUnitTest = new StringBuilder();
                 foreach (int N in new int[] { 1, 2, 3, 4, 5 })
                 {
                     int maxTot = 0;
@@ -46,18 +48,37 @@ namespace CoinCounting
                     maxTot *= maxCount;
                     maxTot /= 10;
                     var rand = new Random();
-                    sb.Append(rand.Next(maxTot)).Append(separator);
+                    int valueToReach = rand.Next(maxTot);
+                    sb.Append(valueToReach).Append(separator);
+                    sbUnitTest.Append(valueToReach).Append(separatorTest);
                     sb.Append(N).Append(separator);
-                    sb.Append(string.Join('.', Enumerable.Range(0, N).Select(n => rand.Next(maxCount)))).Append(separator);
-                    sb.Append(string.Join('.', Enumerable.Range(0, N).Select(n => rand.Next(maxVal))));
+                    sbUnitTest.Append(N).Append(separatorTest);
+                    //To list is mandatory because rand.Next is called when the iterator comes through and we want fixed list
+                    var counts = Enumerable.Range(0, N).Select(n => rand.Next(maxCount)).ToList();
+                    sb.Append(string.Join('.', counts)).Append(separator);
+                    TextArray(sbUnitTest, counts).Append(separatorTest);
+
+                    var values = Enumerable.Range(0, N).Select(n => rand.Next(maxVal)).ToList();
+                    sb.Append(string.Join('.', values));
+                    TextArray(sbUnitTest, values).Append(")]");
+
                     var arg = sb.ToString();
                     Solve(arg.Split(separator));
-                    Console.WriteLine(sb.ToString().Replace(separator, '\n').Replace('.', ' ') + "\n ^^^^^^ args");
+                    Console.WriteLine('\n' + sb.ToString().Replace(separator, '\n').Replace('.', ' ') + "\n ^^^^^^ CodingGameTest \\ C# test vvvvvvv");
+                    Console.Write("[TestCase(");
+                    Solve(arg.Split(separator));
+                    Console.WriteLine(separatorTest + sbUnitTest.ToString());
                     sb.Clear();
+                    sbUnitTest.Clear();
                 }
             }
             else
                 Solve(args);
+
+            StringBuilder TextArray(StringBuilder sb, IEnumerable<int> values)
+            {
+                return sb.Append(" new int[] { ").Append(string.Join(", ", values)).Append(" }");
+            }
         }
 
         private static void Solve(string[] args)
@@ -73,7 +94,7 @@ namespace CoinCounting
             {
                 values[i] = int.Parse(splitted[i]);
             }
-            System.Console.WriteLine(new Processers.StackProcesser().Process(valueToReach, N, nbOfCoins, values));
+            System.Console.Write(new Processers.StackProcesser().Process(valueToReach, N, nbOfCoins, values));
         }
         public class Sorts : IComparer<(int, int)>
         {
@@ -166,8 +187,8 @@ namespace CoinCounting
                             sum += couple.v;
                             if (couple.n > 0)
                                 stack.Push(couple);
-                            else
-                                Console.Error.WriteLine("Out of coins for : " + couple);
+                            /*else
+                                Console.Error.WriteLine("Out of coins for : " + couple);*/
                         }
                     }
                     return result;
