@@ -119,7 +119,7 @@ namespace CoinCounting
             {
                 return nbOfCoins.Zip(values, (n, v) => (n, v)).OrderBy(selector);
             }
-            public static Func<(int, int), int> selector => (kv) => kv.Item2;
+            public static Func<(int n, int v), int> selector => (kv) => kv.v;
             public int Compare((int, int) kv1, (int, int) kv2) => -selector(kv1).CompareTo(selector(kv2));
         }
         public class Processers
@@ -151,9 +151,7 @@ namespace CoinCounting
                 public override Stack<(int n, int v)> CreateStructure(int[] nbOfCoins, int[] values)
                 {
                     var stack = new Stack<(int, int)>();
-                    // Iterate over the arrays in reverse order, and push the tuples onto the stack
-                    // in the order of the sorted second values.
-                    for (int i = nbOfCoins.Length - 1; i >= 0; i--)
+                    for (int i =  0; i < nbOfCoins.Length; i++)
                     {
                         int secondValue = values[i];
                         var tuple = (nbOfCoins[i], secondValue);
