@@ -125,7 +125,7 @@ namespace CoinCounting
                 return nbOfCoins.Zip(values, (n, v) => (n, v)).OrderBy(selector);
             }
             public static Func<(int n, int v), int> selector => (kv) => kv.v;
-            public int Compare((int, int) kv1, (int, int) kv2) => -selector(kv1).CompareTo(selector(kv2));
+            public int Compare((int, int) kv1, (int, int) kv2) => selector(kv1).CompareTo(selector(kv2));
         }
         public class Processers
         {
