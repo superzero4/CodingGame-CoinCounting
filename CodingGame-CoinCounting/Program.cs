@@ -105,13 +105,18 @@ namespace CoinCounting
                 tmp.Sort(new Sorts());
                 return tmp;
             }
-            public static (int n, int v)[] CreateSortedCouples(int[] nbOfCoins, int[] values)
+            public static (int n, int v)[] ZipArrays(int[] nbOfCoins, int[] values)
             {
                 var couples = new (int, int)[nbOfCoins.Length];
                 for (int i = 0; i < nbOfCoins.Length; i++)
                 {
                     couples[i] = (nbOfCoins[i], values[i]);
                 }
+                return couples;
+            }
+            public static (int n, int v)[] CreateSortedCouples(int[] nbOfCoins, int[] values)
+            {
+                var couples =ZipArrays(nbOfCoins, values);
                 Array.Sort(couples, new Sorts());
                 return couples;
             }
@@ -195,7 +200,7 @@ namespace CoinCounting
                     return result;
                 }
             }
-            public class ArrayProcessor : BaseProcesser<(int n, int v)[]>
+            public class SortedArrayProcessor : BaseProcesser<(int n, int v)[]>
             {
                 public override (int, int)[] CreateStructure(int[] nbOfCoins, int[] values) => Program.Sorts.CreateSortedCouples(nbOfCoins, values);
 
@@ -220,6 +225,16 @@ namespace CoinCounting
                         }
                     }
                     return result;
+                }
+            }
+            public class MinArrayProcessor : BaseProcesser<(int n, int v)[]>
+            {
+                public override (int n, int v)[] CreateStructure(int[] nbOfCoins, int[] values)=> Sorts.ZipArrays(nbOfCoins,values);
+
+                public override int Process(int valueToReach, (int n, int v)[] structure)
+                {
+                    //Find min on each pass instead of sorting all array before
+                    throw new NotImplementedException();
                 }
             }
         }
