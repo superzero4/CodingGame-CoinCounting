@@ -154,6 +154,8 @@ namespace CoinCounting
                     int result = 0;
                     for (; sum < valueToReach; result++)
                     {
+                        if (stack.Count == 0)
+                            return -1;
                         var couple = stack.Pop();
                         if (couple.n > 0)
                         {
