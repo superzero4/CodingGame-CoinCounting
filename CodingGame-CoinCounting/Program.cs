@@ -1,4 +1,6 @@
-﻿namespace CoinCounting
+﻿using System.Text;
+
+namespace CoinCounting
 {
 
     public interface IConsole
@@ -21,18 +23,52 @@
             _sr = new StringReader(args);
         }
     }
-    
+
     public class Program
     {
+        private const bool _generateTestCases = true;
+        private const int maxVal = 10;
+        private const int maxCount = 100;
+        private const char separator = ' ';
+
         public static void Main(string[] args)
         {
-            IConsole entry = new StreamConsole(string.Join('\n', args).Replace('.', ' '));
+            if (_generateTestCases)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (int N in new int[] { 1, 2, 3, 4, 5 })
+                {
+                    int maxTot = 0;
+                    for (int i = maxVal; i >= maxVal - N; i--)
+                    {
+                        maxTot += i;
+                    }
+                    maxTot *= maxCount;
+                    maxTot /= 10;
+                    var rand = new Random();
+                    sb.Append(rand.Next(maxTot)).Append(separator);
+                    sb.Append(N).Append(separator);
+                    sb.Append(string.Join('.', Enumerable.Range(0, N).Select(n => rand.Next(maxCount)))).Append(separator);
+                    sb.Append(string.Join('.', Enumerable.Range(0, N).Select(n => rand.Next(maxVal))));
+                    var arg = sb.ToString();
+                    Solve(arg.Split(separator));
+                    Console.WriteLine(sb.ToString().Replace(separator, '\n').Replace('.', ' ') + "\n ^^^^^^ args");
+                    sb.Clear();
+                }
+            }
+            else
+                Solve(args);
+        }
+
+        private static void Solve(string[] args)
+        {
+            IConsole entry = new StreamConsole(string.Join('\n', args).Replace('.', separator));
             //IConsole Console= new ConsoleFacade();
             var valueToReach = int.Parse(entry.ReadLine());
             var N = int.Parse(entry.ReadLine());
-            var nbOfCoins = entry.ReadLine().Split(' ').Select(x => int.Parse(x)).ToArray();
+            var nbOfCoins = entry.ReadLine().Split(separator).Select(x => int.Parse(x)).ToArray();
             var values = new int[N];
-            var splitted = entry.ReadLine().Split(' ');
+            var splitted = entry.ReadLine().Split(separator);
             for (int i = 0; i < N; i++)
             {
                 values[i] = int.Parse(splitted[i]);
