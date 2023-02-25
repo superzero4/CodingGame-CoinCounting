@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "CodingGame-CoinCounting": {
+      "commandName": "Project",
+      "commandLineArgs": "2 3 1.1.1 2.5.3"
+    },
+    "Profile 1": {
+      "commandName": "Project",
+      "commandLineArgs": "14 2 2.2 6.5"
+    },
+    "Profile 2": {
+      "commandName": "Project",
+      "commandLineArgs": "14 2 2.2 6.5"
+    }
+  }
+}

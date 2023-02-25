@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
+      "projectUniqueName": "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
       "projectName": "CodingGame-CoinCounting",
-      "projectPath": "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
+      "projectPath": "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
       "packagesPath": "C:\\Users\\flore\\.nuget\\packages\\",
-      "outputPath": "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\obj\\",
+      "outputPath": "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

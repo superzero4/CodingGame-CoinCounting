@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Unity Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj": {}
+    "E:\\C#Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj": {}
   },
   "projects": {
-    "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj": {
+    "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
+        "projectUniqueName": "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
         "projectName": "CodingGame-CoinCounting",
-        "projectPath": "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
+        "projectPath": "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj",
         "packagesPath": "C:\\Users\\flore\\.nuget\\packages\\",
-        "outputPath": "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\obj\\",
+        "outputPath": "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "E:\\Unity Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj": {
+    "E:\\C#Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Unity Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj",
+        "projectUniqueName": "E:\\C#Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj",
         "projectName": "Validators",
-        "projectPath": "E:\\Unity Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj",
+        "projectPath": "E:\\C#Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj",
         "packagesPath": "C:\\Users\\flore\\.nuget\\packages\\",
-        "outputPath": "E:\\Unity Projects\\CodingGame-CoinCounting\\Validators\\obj\\",
+        "outputPath": "E:\\C#Projects\\CodingGame-CoinCounting\\Validators\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -90,8 +90,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj": {
-                "projectPath": "E:\\Unity Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj"
+              "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj": {
+                "projectPath": "E:\\C#Projects\\CodingGame-CoinCounting\\CodingGame-CoinCounting\\CodingGame-CoinCounting.csproj"
               }
             }
           }

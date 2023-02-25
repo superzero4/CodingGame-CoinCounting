@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "R1d8gWt7Y/UnsWLSRHeo4s2ha7y5ka0UfVY1hSW9Q7YwmzYEEO7wLWtwIIE7qRby5YxelMsfrArK91DzbgTzIw==",
+  "dgSpecHash": "XwJbsCJQdEq0oozQha2UvifvZ4ujC6X1RPOlxAEgLH8gN2wiLhsQOck4AVqYQYppEk0roOhhnq7meR36k/+fng==",
   "success": true,
-  "projectFilePath": "E:\\Unity Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj",
+  "projectFilePath": "E:\\C#Projects\\CodingGame-CoinCounting\\Validators\\Validators.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\flore\\.nuget\\packages\\coverlet.collector\\3.1.0\\coverlet.collector.3.1.0.nupkg.sha512",
     "C:\\Users\\flore\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
