@@ -1,5 +1,6 @@
 ﻿namespace CoinCounting
 {
+
     public interface IConsole
     {
         string ReadLine();
@@ -20,6 +21,7 @@
             _sr = new StringReader(args);
         }
     }
+    
     public class Program
     {
         public static void Main(string[] args)
@@ -35,64 +37,127 @@
             {
                 values[i] = int.Parse(splitted[i]);
             }
-            System.Console.WriteLine(new StackProcesser().Process(valueToReach, N, nbOfCoins, values));
+            System.Console.WriteLine(new Processers.StackProcesser().Process(valueToReach, N, nbOfCoins, values));
         }
-        public interface IProcesser
+        public class Sorts : IComparer<(int, int)>
         {
-            public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values);
-        }
-        public class StackProcesser : IProcesser
-        {
-            public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values)
+            //static Func<(int, int,int)> comparison = (kv1, kv2) => -kv1.Item2.CompareTo(kv2.Item2);
+            public static IEnumerable<(int, int)> Sort(IEnumerable<(int, int)> enumerable)
             {
-                var coupled = nbOfCoins.Select((n, i) => (n, values[i])).ToList();
-                coupled.Sort((kv1, kv2) => -kv1.n.CompareTo(kv2.n));
-                var stack = new Stack<(int n, int v)>(coupled);
-                int sum = 0;
-                int result = 0;
-                for (; sum < valueToReach; result++)
-                {
-                    var couple = stack.Pop();
-                    if (couple.n > 0)
-                    {
-                        couple.n--;
-                        sum += couple.v;
-                        if (couple.n > 0)
-                            stack.Push(couple);
-                        else
-                            Console.Error.WriteLine("Out of coins for : " + couple);
-                    }
-                }
-                return result;
+                var tmp = enumerable.ToList();
+                tmp.Sort(new Sorts());
+                return tmp;
             }
-        }
-        public class ArrayProcessor : IProcesser
-        {
-            public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values)
+            public static (int n, int v)[] CreateSortedCouples(int[] nbOfCoins, int[] values)
             {
-                var coupled = nbOfCoins.Select((n, i) => (n, values[i])).ToList();
-                coupled.Sort((kv1, kv2) => -kv1.n.CompareTo(kv2.n));
-                var array = coupled.ToArray();
-                int sum = 0;
-                int result = 0;
-                int skipped = 0;
-                for (; sum < valueToReach; result++)
+                var couples = new (int, int)[nbOfCoins.Length];
+                for (int i = 0; i < nbOfCoins.Length; i++)
                 {
-                    var couple = array[skipped];
-                    if (couple.n > 0)
-                    {
-                        couple.n--;
-                        sum += couple.Item2;
-                    }
-                    else
-                    {
-                        skipped++;
-                        //We didn't pick a coin because we skipped it
-                        result--;
-                        Console.Error.WriteLine("Out of coins for : " + couple);
-                    }
+                    couples[i] = (nbOfCoins[i], values[i]);
                 }
-                return result;
+                Array.Sort(couples, new Sorts());
+                return couples;
+            }
+            public static IEnumerable<(int n, int v)> ZipThenOrder(int[] nbOfCoins, int[] values)
+            {
+                return nbOfCoins.Zip(values, (n, v) => (n, v)).OrderBy(selector);
+            }
+            public static Func<(int, int), int> selector => (kv) => kv.Item2;
+            public int Compare((int, int) kv1, (int, int) kv2) => -selector(kv1).CompareTo(selector(kv2));
+        }
+        public class Processers
+        {
+            public interface IProcesser
+            {
+                public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values);
+            }
+            public interface IProcesser<T> : IProcesser where T : IEnumerable<(int n, int v)>
+            {
+                public T CreateStructure(int[] nbOfCoins, int[] values);
+            }
+
+            public abstract class BaseProcesser<T> : IProcesser<T> where T : IEnumerable<(int n, int v)>
+            {
+                public abstract T CreateStructure(int[] nbOfCoins, int[] values);
+
+                public int Process(int valueToReach, int N, int[] nbOfCoins, int[] values)
+                {
+                    return Process(valueToReach, CreateStructure(nbOfCoins, values));
+                }
+                public abstract int Process(int valueToReach, T structure);
+            }
+            public class StackProcesser : BaseProcesser<Stack<(int n, int v)>>
+            {
+                public override Stack<(int n, int v)> CreateStructure(int[] nbOfCoins, int[] values)
+                {
+                    var stack = new Stack<(int, int)>();
+                    // Iterate over the arrays in reverse order, and push the tuples onto the stack
+                    // in the order of the sorted second values.
+                    for (int i = nbOfCoins.Length - 1; i >= 0; i--)
+                    {
+                        int secondValue = values[i];
+                        var tuple = (nbOfCoins[i], secondValue);
+                        if (stack.Count == 0 || secondValue <= stack.Peek().Item2)
+                            stack.Push(tuple);
+                        else
+                        {
+                            while (stack.Count > 0 && secondValue > stack.Peek().Item2)
+                                stack.Pop();
+                            stack.Push(tuple);
+                        }
+                    }
+                    //less optimized would be 
+                    //stack = new Stack<(int, int)>(Program.Sorts.ZipThenOrder(nbOfCoins, values));
+
+                    return stack;
+                }
+
+                public override int Process(int valueToReach, Stack<(int n, int v)> stack)
+                {
+                    int sum = 0;
+                    int result = 0;
+                    for (; sum < valueToReach; result++)
+                    {
+                        var couple = stack.Pop();
+                        if (couple.n > 0)
+                        {
+                            couple.n--;
+                            sum += couple.v;
+                            if (couple.n > 0)
+                                stack.Push(couple);
+                            else
+                                Console.Error.WriteLine("Out of coins for : " + couple);
+                        }
+                    }
+                    return result;
+                }
+            }
+            public class ArrayProcessor : BaseProcesser<(int n, int v)[]>
+            {
+                public override (int, int)[] CreateStructure(int[] nbOfCoins, int[] values) => Program.Sorts.CreateSortedCouples(nbOfCoins, values);
+
+                public override int Process(int valueToReach, (int n, int v)[] array)
+                {
+                    int sum = 0;
+                    int result = 0;
+                    int skipped = 0;
+                    for (var couple = array[skipped]; sum < valueToReach; result++)
+                    {
+                        if (couple.n > 0)
+                        {
+                            couple.n--;
+                            sum += couple.v;
+                        }
+                        else
+                        {
+                            skipped++;
+                            //We didn't pick a coin because we skipped it
+                            result--;
+                            Console.Error.WriteLine("Out of coins for : " + couple);
+                        }
+                    }
+                    return result;
+                }
             }
         }
     }
