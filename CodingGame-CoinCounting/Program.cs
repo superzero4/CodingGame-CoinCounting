@@ -3,15 +3,15 @@
 namespace CoinCounting
 {
 
-    public interface IConsole
+    public interface IConsoleFacade
     {
         string ReadLine();
     }
-    public class ConsoleFacade : IConsole
+    public class ConsoleFacade : IConsoleFacade
     {
         public string ReadLine() => Console.ReadLine();
     }
-    public class StreamConsole : IConsole
+    public class StreamConsole : IConsoleFacade
     {
         TextReader _sr;
         public string ReadLine()
@@ -21,6 +21,19 @@ namespace CoinCounting
         public StreamConsole(string args)
         {
             _sr = new StringReader(args);
+        }
+    }
+    public class FileConsole : IConsoleFacade
+    {
+        StreamReader _file;
+        public FileConsole(string path)
+        {
+            _file = File.OpenText(path);
+        }
+
+        public string ReadLine()
+        {
+            return _file.ReadLine();
         }
     }
 
@@ -86,6 +99,9 @@ namespace CoinCounting
         {
             IConsole entry = new StreamConsole(string.Join('\n', args).Replace('.', separator));
             //IConsole Console= new ConsoleFacade();
+            //IConsole entry = new StreamConsole(string.Join('\n', args).Replace('.', separator));
+            //IConsole entry = new FileConsole(TextPath).Replace());
+            IConsoleFacade entry = new ConsoleFacade();
             var valueToReach = int.Parse(entry.ReadLine());
             var N = int.Parse(entry.ReadLine());
             var nbOfCoins = entry.ReadLine().Split(separator).Select(x => int.Parse(x)).ToArray();
