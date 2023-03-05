@@ -68,11 +68,14 @@ namespace CoinCounting
                     sb.Append(N).Append(separator);
                     sbUnitTest.Append(N).Append(separatorTest);
                     //To list is mandatory because rand.Next is called when the iterator comes through and we want fixed list
-                    var counts = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount)).ToList();
+                    var counts = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount - 1) + 1).ToList();
                     sb.Append(string.Join('.', counts)).Append(separator);
                     TextArray(sbUnitTest, counts).Append(separatorTest);
 
-                    var values = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount)).ToList();
+                    //Not distinct
+                    //var values = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount - 1) + 1).ToList();
+                    //Distinct
+                    var values = Enumerable.Range(1, maxValuesAndCount).OrderBy(x => rand.Next()).Take(N).ToList();
                     sb.Append(string.Join('.', values));
                     TextArray(sbUnitTest, values).Append(")]");
 
