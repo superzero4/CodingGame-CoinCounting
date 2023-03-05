@@ -22,6 +22,14 @@ namespace Validators
             //We reverse zipped array even thou it's sorted correctly because we're in a LIFO struct when creating stack to compare so elements need to be inserted from enumerable in reverse order
             Assert.AreEqual(new System.Collections.Generic.Stack<(int, int)>(Program.Sorts.ZipThenOrder(nbOfCoins, values).Reverse()), obtained);
         }
+        [TestCase(10)]
+        [TestCase(100)]
+        [TestCase(1000)]
+        public void TestDistinctValuesGeneration(int N)
+        {
+            var generated = Program.GenerateValues(N);
+            Assert.AreEqual(generated.Distinct().Count(), generated.Count);
+        }
         /* CodingGame tests 2 
          18
     139

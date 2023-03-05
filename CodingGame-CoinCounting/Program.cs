@@ -71,11 +71,7 @@ namespace CoinCounting
                     var counts = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount - 1) + 1).ToList();
                     sb.Append(string.Join('.', counts)).Append(separator);
                     TextArray(sbUnitTest, counts).Append(separatorTest);
-
-                    //Not distinct
-                    //var values = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount - 1) + 1).ToList();
-                    //Distinct
-                    var values = Enumerable.Range(1, maxValuesAndCount).OrderBy(x => rand.Next()).Take(N).ToList();
+                    List<int> values = GenerateValues(N, rand);
                     sb.Append(string.Join('.', values));
                     TextArray(sbUnitTest, values).Append(")]");
 
@@ -96,6 +92,17 @@ namespace CoinCounting
             {
                 return sb.Append(" new int[] { ").Append(string.Join(", ", values)).Append(" }");
             }
+        }
+        public static List<int> GenerateValues(int N)
+        {
+            return GenerateValues(N, new Random());
+        }
+        private static List<int> GenerateValues(int N, Random rand)
+        {
+            //Not distinct
+            //var values = Enumerable.Range(0, N).Select(n => rand.Next(maxValuesAndCount - 1) + 1).ToList();
+            //Distinct
+            return Enumerable.Range(1, maxValuesAndCount).OrderBy(x => rand.Next()).Take(N).ToList();
         }
 
         private static void Solve(string[] args)
